@@ -15,6 +15,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-flip")],
 };
 export default config;
