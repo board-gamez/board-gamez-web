@@ -5,41 +5,40 @@ import UserIcon from "./icons/User";
 import Link from "next/link";
 
 export default function Navbar() {
-  const navItems = [
-    {
-      id: 1,
-      name: "تماس با ما",
-      link: "/contact-us",
-    },
-    {
-      id: 2,
-      name: "درباره با ما",
-      link: "/about-us",
-    },
-  ];
-
   return (
-    <nav className="bg-red-300 container mx-auto flex items-center">
-      <Link href={"/"} className="bg-blue-200 p-2">
+    <nav className="container mx-auto flex items-center py-2">
+      <Link href={"/"} className="p-2">
         <Image src={"/logo.svg"} width={80} height={80} alt="" />
       </Link>
 
-      <div className="bg-yellow-200 flex-1">
-        {navItems.map((navItem) => (
-          <Link
-            key={navItem.id}
-            href={navItem.link}
-            className="inline-block px-3 p-2"
-          >
-            {navItem.name}
-          </Link>
-        ))}
+      <div className="flex-1">
+        <form className="flex justify-center bg-light-gray w-fit mx-auto rounded-full overflow-hidden">
+          <input
+            type="text"
+            placeholder="جستجو"
+            className="bg-inherit py-2 px-4 w-96 outline-none"
+          />
+
+          <button className="bg-inherit p-2 hover:bg-dark-gray rounded-full">
+            <SearchIcon />
+          </button>
+        </form>
       </div>
 
-      <div className="bg-purple-200 flex">
-        <SearchIcon />
-        <CartIcon />
-        <UserIcon />
+      <div className="flex">
+        <Link
+          href={"/cart"}
+          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
+        >
+          <CartIcon />
+        </Link>
+
+        <Link
+          href={"/account"}
+          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
+        >
+          <UserIcon />
+        </Link>
       </div>
     </nav>
   );

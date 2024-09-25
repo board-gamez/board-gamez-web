@@ -17,8 +17,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={vazirmatn.className} dir="rtl">
-        <header>
+      <body className={`${vazirmatn.className} bg-slate-100`} dir="rtl">
+        <header className="bg-white">
           <Navbar />
         </header>
 
