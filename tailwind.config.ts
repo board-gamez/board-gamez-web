@@ -14,6 +14,7 @@ const config: Config = {
         "light-black": "#222222",
         "light-gray": "#f5f5f5",
         "dark-gray": "#e5e5e5",
+        "darken-gray": "#707072",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
