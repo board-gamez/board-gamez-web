@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="container mx-auto flex items-center py-2">
+    <nav className="container mx-auto flex items-center py-2 mb-3">
       <Link href={"/"} className="p-2">
         <Image src={"/logo.svg"} width={80} height={80} alt="" />
       </Link>
