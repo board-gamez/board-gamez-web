@@ -34,7 +34,7 @@ export default function Navbar() {
         </Link>
 
         <Link
-          href={"/account"}
+          href={"/profile/personal-info"}
           className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
         >
           <UserIcon />
