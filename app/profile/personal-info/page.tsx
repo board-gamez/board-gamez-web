@@ -1,6 +1,6 @@
 export default function Profile() {
   return (
-    <form className="grid grid-cols-2 gap-3 p-4">
+    <form className="grid grid-cols-1 md:grid-cols-2 gap-3 p-4">
       <div className="flex flex-col">
         <label className="font-bold mb-2">نام و نام خانوادگی</label>
         <input

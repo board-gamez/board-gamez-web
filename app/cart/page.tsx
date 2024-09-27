@@ -8,7 +8,7 @@ export default function Cart() {
   const totalCost = productsCost + shippingCost;
 
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 flex-col md:flex-row">
       <div className="bg-white flex-1">
         <div className="flex text-center font-bold border-b p-2">
           <div className="flex-none w-28 p-3">تصویر</div>
@@ -42,7 +42,7 @@ export default function Cart() {
         ))}
       </div>
 
-      <div className="bg-white w-96 p-3 rounded-lg flex-none h-fit">
+      <div className="bg-white w-full lg:w-96 p-3 rounded-lg flex-none h-fit">
         <div className="flex justify-between mb-7">
           <span>قیمت کالاها</span>
           <span>{productsCost.toLocaleString()} تومان</span>

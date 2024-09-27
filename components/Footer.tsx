@@ -6,12 +6,12 @@ import YoutubeIcon from "./icons/Youtube";
 export default function Footer() {
   return (
     <footer className="bg-white mt-10">
-      <div className="container mx-auto flex py-5">
-        <p className="flex-1 p-3 text-darken-gray">
+      <div className="container mx-auto flex py-5 px-3 flex-col sm:flex-row">
+        <p className="flex-1 text-darken-gray text-center sm:text-right">
           کلیه حقوق فروشگاه متعلق به بردگیمز می باشد.
         </p>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 justify-center my-4 sm:my-0">
           <Link href={"https://t.me/board_gamez"}>
             <TelegramIcon className="text-darken-gray hover:text-dark-black duration-150" />
           </Link>
