@@ -23,7 +23,7 @@ export default function RootLayout({
           <Navbar />
         </header>
 
-        <main>{children}</main>
+        <main className="container mx-auto">{children}</main>
 
         <Footer />
       </body>
