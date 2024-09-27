@@ -2,6 +2,7 @@ import Link from "next/link";
 import InstagramIcon from "./icons/Instagram";
 import TelegramIcon from "./icons/Telegram";
 import YoutubeIcon from "./icons/Youtube";
+
 export default function Footer() {
   return (
     <footer className="bg-white mt-10">

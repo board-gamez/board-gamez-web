@@ -3,6 +3,11 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Link from "next/link";
+import TelegramIcon from "@/components/icons/Telegram";
+import InstagramIcon from "@/components/icons/Instagram";
+import YoutubeIcon from "@/components/icons/Youtube";
+import Topbar from "@/components/Topbar";
 
 const vazirmatn = Vazirmatn({ subsets: ["latin"] });
 
@@ -18,8 +23,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${vazirmatn.className} bg-slate-100`} dir="rtl">
-        <header className="bg-white">
+      <body className={`${vazirmatn.className} bg-light-gray`} dir="rtl">
+        <Topbar />
+
+        <header className="bg-white sticky top-0 shadow-sm">
           <Navbar />
         </header>
 
