@@ -3,11 +3,8 @@ import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Link from "next/link";
-import TelegramIcon from "@/components/icons/Telegram";
-import InstagramIcon from "@/components/icons/Instagram";
-import YoutubeIcon from "@/components/icons/Youtube";
 import Topbar from "@/components/Topbar";
+import { CartProvider } from "@/lib/context/cart-context";
 
 const vazirmatn = Vazirmatn({ subsets: ["latin"] });
 
@@ -24,15 +21,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${vazirmatn.className} bg-light-gray`} dir="rtl">
-        <Topbar />
+        <CartProvider>
+          <Topbar />
 
-        <header className="bg-white sticky top-0 shadow-sm">
-          <Navbar />
-        </header>
+          <header className="bg-white sticky top-0 shadow-sm">
+            <Navbar />
+          </header>
 
-        <main className="container mx-auto px-3">{children}</main>
+          <main className="container mx-auto px-3">{children}</main>
 
-        <Footer />
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
