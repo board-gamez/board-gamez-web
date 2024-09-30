@@ -5,6 +5,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 interface CartType {
   cartItems: CartItem[];
   addToCart: (productId: string, quantity: number) => void;
+  removeFromCart: (productId: string, quantity: number) => void;
 }
 
 interface CartItem {
@@ -15,6 +16,7 @@ interface CartItem {
 const CartContext = createContext<CartType>({
   cartItems: [],
   addToCart: () => {},
+  removeFromCart: () => {},
 });
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
@@ -26,21 +28,34 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     );
 
     if (exist) {
-      const updatedCartItems = cartItems.map((item) =>
+      const updatedCart = cartItems.map((item) =>
         item.productId === productId
           ? { ...item, quantity: item.quantity + quantity }
           : item
       );
 
-      setCartItems(updatedCartItems);
+      setCartItems(updatedCart);
     } else {
       setCartItems([...cartItems, { productId, quantity }]);
     }
   };
 
+  const removeFromCart = (productId: string, quantity: number) => {
+    const updatedCart = cartItems
+      .map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity - quantity }
+          : item
+      )
+      .filter((item) => item.quantity);
+
+    setCartItems(updatedCart);
+  };
+
   const context: CartType = {
     cartItems,
     addToCart,
+    removeFromCart,
   };
 
   return (

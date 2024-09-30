@@ -1,4 +1,5 @@
 import Product from "@/components/ProductCard";
+import { products } from "@/fake-data/product.data";
 import { getProducts } from "@/lib/services/product.service";
 
 export default async function Root() {
@@ -10,6 +11,10 @@ export default async function Root() {
         {/* {resp.products.map((product) => (
           <Product key={product.slug} product={product} />
         ))} */}
+
+        {products.map((product) => (
+          <Product key={product.slug} product={product} />
+        ))}
       </div>
     </main>
   );
