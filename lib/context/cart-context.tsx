@@ -1,12 +1,10 @@
 "use client";
 
-import { products } from "@/fake-data/product.data";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 interface CartType {
   cartItems: CartItem[];
   addToCart: (productId: string, quantity: number) => void;
-  // addToCart: (cartItem: CartItem) => void;
 }
 
 interface CartItem {
@@ -20,37 +18,24 @@ const CartContext = createContext<CartType>({
 });
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      productId: "12",
-      quantity: 1,
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   const addToCart = (productId: string, quantity: number) => {
-    // const existingItem = cartItems.find(
-    //   (cartItem) => cartItem.productId === productId
-    // );
+    const exist = cartItems.find(
+      (cartItem) => cartItem.productId === productId
+    );
 
-    // if (existingItem) {
-    //   console.log("bebe");
+    if (exist) {
+      const updatedCartItems = cartItems.map((item) =>
+        item.productId === productId
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+      );
 
-    //   existingItem.quantity += quantity;
-    // } else {
-    //   console.log("hoooy");
-
-    //   // cartItems.push({ productId, quantity });
-    // }
-
-    // setCartItems(cartItems);
-
-    setCartItems((val) => [...val, { productId, quantity }]);
-    // console.log(cartItems);
-
-    // setCartItems((val) => {
-    //   val.map();
-    //   return [...val, { productId, quantity }];
-    // });
+      setCartItems(updatedCartItems);
+    } else {
+      setCartItems([...cartItems, { productId, quantity }]);
+    }
   };
 
   const context: CartType = {
