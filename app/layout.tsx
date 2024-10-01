@@ -22,15 +22,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${vazirmatn.className} bg-light-gray`} dir="rtl">
         <CartProvider>
-          {/* <Topbar />
+          <Topbar />
 
           <header className="bg-white sticky top-0 shadow-sm">
             <Navbar />
-          </header> */}
+          </header>
 
           <main className="container mx-auto px-3">{children}</main>
 
-          {/* <Footer /> */}
+          <Footer />
         </CartProvider>
       </body>
     </html>
