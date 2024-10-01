@@ -1,16 +1,23 @@
 "use client";
 
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { CartItem } from "../types/cart-item";
+import {
+  getStorageCart,
+  setStorageCart,
+  storageName,
+} from "../storage/cart-storage";
 
 interface CartType {
   cartItems: CartItem[];
   addToCart: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string, quantity: number) => void;
-}
-
-interface CartItem {
-  productId: string;
-  quantity: number;
 }
 
 const CartContext = createContext<CartType>({
@@ -20,7 +27,33 @@ const CartContext = createContext<CartType>({
 });
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(getStorageCart());
+
+  // Load initial cart items from localStorage
+  useEffect(() => {
+    setCartItems(getStorageCart());
+  }, []);
+
+  // Sync cart items to localStorage whenever they change
+  useEffect(() => {
+    setStorageCart(cartItems);
+  }, [cartItems]);
+
+  // Handle syncing between tabs using the storage event
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === storageName) {
+        const newCart = e.newValue ? JSON.parse(e.newValue) : [];
+        setCartItems(newCart);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const addToCart = (productId: string, quantity: number) => {
     const exist = cartItems.find(
@@ -47,7 +80,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
           ? { ...item, quantity: item.quantity - quantity }
           : item
       )
-      .filter((item) => item.quantity);
+      .filter((item) => item.quantity > 0);
 
     setCartItems(updatedCart);
   };

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Product } from "@/lib/types/product";
 import { getFileLink } from "@/lib/services/file.service";
+import AddToCartButton from "./AddToCartButton";
 
 interface InputProps {
   product: Product;
@@ -28,9 +29,7 @@ export default function ProductCard({ product }: InputProps) {
         <div className="text-left">{product.price.toLocaleString()} تومان</div>
       </div>
 
-      <button className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150">
-        افزودن به سبد خرید
-      </button>
+      <AddToCartButton product={product} />
     </div>
   );
 }
