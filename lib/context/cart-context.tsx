@@ -16,12 +16,14 @@ import {
 
 interface CartType {
   cartItems: CartItem[];
+  cartItemsCount: () => number;
   addToCart: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string, quantity: number) => void;
 }
 
 const CartContext = createContext<CartType>({
   cartItems: [],
+  cartItemsCount: () => 0,
   addToCart: () => {},
   removeFromCart: () => {},
 });
@@ -73,6 +75,16 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
+  const cartItemsCount = (): number => {
+    let count = 0;
+
+    for (const cartItem of cartItems) {
+      count += cartItem.quantity;
+    }
+
+    return count;
+  };
+
   const removeFromCart = (productId: string, quantity: number) => {
     const updatedCart = cartItems
       .map((item) =>
@@ -87,6 +99,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
 
   const context: CartType = {
     cartItems,
+    cartItemsCount,
     addToCart,
     removeFromCart,
   };

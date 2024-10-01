@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import SearchIcon from "./icons/Search";
 import CartIcon from "./icons/Cart";
 import UserIcon from "./icons/User";
 import Link from "next/link";
+import { useCart } from "@/lib/context/cart-context";
 
 export default function Navbar() {
+  const { cartItemsCount } = useCart();
+
   return (
     <nav className="container mx-auto flex items-center py-2 mb-3 justify-between">
       <Link href={"/"} className="p-2">
@@ -32,9 +37,14 @@ export default function Navbar() {
 
         <Link
           href={"/cart"}
-          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
+          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150 relative"
         >
           <CartIcon />
+          {cartItemsCount() > 0 && (
+            <span className="absolute text-xs bg-black aspect-square w-5 text-white flex items-center justify-center bottom-0 right-0 rounded-md">
+              {cartItemsCount()}
+            </span>
+          )}
         </Link>
 
         <Link
