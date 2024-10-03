@@ -1,8 +1,32 @@
-import { products } from "@/fake-data/product.data";
+"use client";
+
 import Image from "next/image";
 import NumberInput from "../../components/NumberInput";
+import { useCart } from "@/lib/context/cart-context";
+import { useEffect, useState } from "react";
+import { Product } from "@/lib/types/product";
+import { getMultipleProducts } from "@/lib/services/product.service";
+import { getFileLink } from "@/lib/services/file.service";
 
 export default function Cart() {
+  const { cartItems } = useCart();
+
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const fetchProducts = async () => {
+    const productId = cartItems.map((cartItem) => cartItem.productId);
+    const result = await getMultipleProducts(productId);
+    setProducts(result.products);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [cartItems]);
+
   const productsCost = 270000;
   const shippingCost = 45000;
   const totalCost = productsCost + shippingCost;
@@ -24,7 +48,7 @@ export default function Cart() {
           >
             <div className="flex-none w-28">
               <Image
-                src={product.image}
+                src={getFileLink(product.imageKey)}
                 alt={product.title}
                 width={150}
                 height={150}
