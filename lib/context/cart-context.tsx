@@ -19,6 +19,7 @@ interface CartType {
   cartItemsCount: () => number;
   addToCart: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string, quantity: number) => void;
+  itemQuantity: (productId: string) => number;
 }
 
 const CartContext = createContext<CartType>({
@@ -26,6 +27,7 @@ const CartContext = createContext<CartType>({
   cartItemsCount: () => 0,
   addToCart: () => {},
   removeFromCart: () => {},
+  itemQuantity: () => 0,
 });
 
 export const CartProvider = ({ children }: PropsWithChildren) => {
@@ -85,6 +87,12 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     return count;
   };
 
+  const itemQuantity = (productId: string): number => {
+    const founded = cartItems.find((item) => item.productId === productId);
+
+    return founded ? founded.quantity : 0;
+  };
+
   const removeFromCart = (productId: string, quantity: number) => {
     const updatedCart = cartItems
       .map((item) =>
@@ -102,6 +110,7 @@ export const CartProvider = ({ children }: PropsWithChildren) => {
     cartItemsCount,
     addToCart,
     removeFromCart,
+    itemQuantity,
   };
 
   return (

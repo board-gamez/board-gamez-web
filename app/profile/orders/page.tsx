@@ -1,4 +1,4 @@
-import { orders } from "@/fake-data/order.data";
+// import { orders } from "@/fake-data/order.data";
 
 export default function Profile() {
   return (
@@ -10,7 +10,7 @@ export default function Profile() {
         <div className="flex-1 p-3">مبلغ</div>
       </div>
 
-      {orders.map((order) => (
+      {/* {orders.map((order) => (
         <div
           key={order._id}
           className="flex items-center text-center font-bold border-b p-2"
@@ -26,7 +26,7 @@ export default function Profile() {
             {order.totalPrice.toLocaleString()} تومان
           </div>
         </div>
-      ))}
+      ))} */}
     </>
   );
 }
