@@ -1,5 +1,7 @@
 "use client";
 
+import Redirect from "@/lib/utils/Redirect";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,6 +15,7 @@ export default function AuthPage() {
   const [step, setStep] = useState(1);
   const [region, setRegion] = useState("IR");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
 
   const { register, handleSubmit } = useForm<Inputs>();
 
@@ -21,12 +24,28 @@ export default function AuthPage() {
     setStep(2);
   };
 
-  const onSubmitVerifyCode = ({ code }: { code: string }) => {
-    console.log(region, phone, code);
+  const onSubmitVerifyCode = async ({ code }: { code: string }) => {
+    const resp = await signIn("credentials", {
+      redirect: false,
+      region,
+      phone,
+      code,
+    });
+
+    if (resp?.error) {
+      setError(resp?.error);
+      return;
+    }
+
+    Redirect("/");
   };
 
   return (
     <main>
+      {error && (
+        <div className="bg-red-100 text-red-400 text-center">{error}</div>
+      )}
+
       {step === 1 && (
         <form
           onSubmit={handleSubmit(onSubmitSendCode)}
