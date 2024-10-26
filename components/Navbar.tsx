@@ -6,9 +6,11 @@ import CartIcon from "./icons/Cart";
 import UserIcon from "./icons/User";
 import Link from "next/link";
 import { useCart } from "@/lib/context/cart-context";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
   const { cartItemsCount } = useCart();
+  const { data: session } = useSession();
 
   return (
     <nav className="container mx-auto flex items-center py-2 mb-3 justify-between">
@@ -47,12 +49,21 @@ export default function Navbar() {
           )}
         </Link>
 
-        <Link
-          href={"/profile/personal-info"}
-          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
-        >
-          <UserIcon />
-        </Link>
+        {session?.user.name ? (
+          <Link
+            href={"/profile/personal-info"}
+            className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
+          >
+            <UserIcon />
+          </Link>
+        ) : (
+          <Link
+            href={"/auth"}
+            className="rounded-lg py-3 px-6 mx-2 duration-150 bg-black hover:bg-light-black text-center text-white"
+          >
+            ورود / ثبت نام
+          </Link>
+        )}
       </div>
     </nav>
   );

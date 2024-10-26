@@ -1,3 +1,5 @@
+"use client";
+
 import { CartItem } from "../types/cart-item";
 
 export const storageName = "cart";
