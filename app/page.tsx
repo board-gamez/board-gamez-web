@@ -1,8 +1,16 @@
 import Product from "@/components/ProductCard";
 import { getProducts } from "@/lib/services/product.service";
 
-export default async function Root() {
-  const resp = await getProducts();
+interface InputProps {
+  searchParams: {
+    search?: string;
+  };
+}
+
+export default async function Root({ searchParams }: InputProps) {
+  const resp = await getProducts({
+    q: searchParams.search,
+  });
 
   return (
     <main>

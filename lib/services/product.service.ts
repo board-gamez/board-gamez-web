@@ -1,11 +1,24 @@
 import axios from "axios";
-import { GetProductsOutput } from "../dto/get-products.dto";
+import { GetProductsInput, GetProductsOutput } from "../dto/get-products.dto";
 import { GetMultipleProductsOutput } from "../dto/get-multiple-products.dto";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
 
-export async function getProducts(): Promise<GetProductsOutput> {
-  const url = `${baseUrl}/products`;
+export async function getProducts(
+  input: GetProductsInput
+): Promise<GetProductsOutput> {
+  let url = `${baseUrl}/products`;
+  const params: string[] = [];
+
+  for (const [key, val] of Object.entries(input)) {
+    if (!val) continue;
+
+    params.push(`${key}=${val}`);
+  }
+
+  if (params.length > 0) {
+    url += "?" + params.join("&");
+  }
 
   const response = await axios.get(url);
 
