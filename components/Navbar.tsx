@@ -27,19 +27,19 @@ export default function Navbar() {
 
   return (
     <nav className="container mx-auto flex items-center py-2 mb-3 justify-between">
-      <Link href={"/"} className="p-2">
+      <Link href={"/"} className="p-2 flex-none hidden sm:block">
         <Image src={"/logo.svg"} width={80} height={80} alt="" />
       </Link>
 
-      <div className="flex-1 hidden sm:block">
+      <div className="flex-1">
         <form
           onSubmit={handleSubmit(submitSearch)}
-          className="flex justify-center bg-light-gray w-fit mx-auto rounded-full overflow-hidden"
+          className="flex justify-center bg-light-gray w-full sm:w-fit mx-auto rounded-full overflow-hidden"
         >
           <input
             type="text"
-            placeholder="جستجو"
-            className="bg-inherit py-2 px-4 w-96 outline-none"
+            placeholder="جستجو در بردگیمز"
+            className="bg-inherit py-2 px-4 w-full sm:w-72 md:w-96 outline-none"
             {...register("search")}
           />
 
@@ -52,14 +52,10 @@ export default function Navbar() {
         </form>
       </div>
 
-      <div className="flex">
-        <button className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150 block sm:hidden">
-          <SearchIcon />
-        </button>
-
+      <div className="hidden sm:flex">
         <Link
           href={"/cart"}
-          className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150 relative"
+          className="rounded-full p-2 ml-3 sm:ml-2 hover:bg-light-gray duration-150 relative"
         >
           <CartIcon />
           {cartItemsCount() > 0 && (
@@ -72,7 +68,7 @@ export default function Navbar() {
         {session?.user.name ? (
           <Link
             href={"/profile/personal-info"}
-            className="rounded-full p-2 ml-2 hover:bg-light-gray duration-150"
+            className="rounded-full p-2 ml-1 sm:ml-2 hover:bg-light-gray duration-150"
           >
             <UserIcon />
           </Link>
