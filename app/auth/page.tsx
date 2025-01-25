@@ -1,5 +1,6 @@
 "use client";
 
+import { sendCode } from "@/lib/services/auth.service";
 import Redirect from "@/lib/utils/Redirect";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
@@ -20,6 +21,15 @@ export default function AuthPage() {
   const { register, handleSubmit } = useForm<Inputs>();
 
   const onSubmitSendCode = ({ phone }: { phone: string }) => {
+    sendCode({
+      region,
+      phone,
+    })
+      .then((resp) => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+
     setPhone(phone);
     setStep(2);
   };
