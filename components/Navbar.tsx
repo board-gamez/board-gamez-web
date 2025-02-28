@@ -9,6 +9,7 @@ import { useCart } from "@/lib/context/cart-context";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import Redirect from "@/lib/utils/Redirect";
+import Profile from "./Profile";
 
 type SearchInputs = {
   search: string;
@@ -64,6 +65,8 @@ export default function Navbar() {
             </span>
           )}
         </Link>
+
+        <Profile />
 
         {session?.user.name ? (
           <Link

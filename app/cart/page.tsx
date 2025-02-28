@@ -9,9 +9,12 @@ import { getFileLink } from "@/lib/services/file.service";
 import MinusIcon from "@/components/icons/Minus";
 import TrashIcon from "@/components/icons/Trash";
 import PlusIcon from "@/components/icons/Plus";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Cart() {
   const { cartItems, addToCart, removeFromCart, itemQuantity } = useCart();
+  const { data: session } = useSession();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [productsCost, setProductsCost] = useState<number>(0);
@@ -33,6 +36,8 @@ export default function Cart() {
     setProductsCost(productsCost);
     setTotalCost(productsCost + shippingCost);
   };
+
+  const payOrder = () => {};
 
   useEffect(() => {
     calcCost();
@@ -124,7 +129,18 @@ export default function Cart() {
             <span>{totalCost.toLocaleString()} تومان</span>
           </div>
 
-          <button className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150">
+          {/* {session?.user.name ?} */}
+          <Link
+            href={"/checkout/shipping"}
+            className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150"
+          >
+            تکمیل سفارش
+          </Link>
+
+          <button
+            className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150"
+            onClick={payOrder}
+          >
             پرداخت سفارش
           </button>
         </div>
