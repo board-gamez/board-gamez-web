@@ -9,17 +9,14 @@ import { getFileLink } from "@/lib/services/file.service";
 import MinusIcon from "@/components/icons/Minus";
 import TrashIcon from "@/components/icons/Trash";
 import PlusIcon from "@/components/icons/Plus";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function Cart() {
-  const { cartItems, addToCart, removeFromCart, itemQuantity } = useCart();
-  const { data: session } = useSession();
+  const { cartItems, cartItemsCount, addToCart, removeFromCart, itemQuantity } =
+    useCart();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [productsCost, setProductsCost] = useState<number>(0);
-  const [totalCost, setTotalCost] = useState<number>(0);
-  const shippingCost = 45000;
 
   const fetchProducts = async () => {
     const productId = cartItems.map((cartItem) => cartItem.productId);
@@ -34,7 +31,6 @@ export default function Cart() {
     }
 
     setProductsCost(productsCost);
-    setTotalCost(productsCost + shippingCost);
   };
 
   const payOrder = () => {};
@@ -115,34 +111,21 @@ export default function Cart() {
       {products.length > 0 && (
         <div className="bg-white w-full lg:w-96 p-3 rounded-lg flex-none h-fit">
           <div className="flex justify-between mb-7">
+            <span>تعداد کالا</span>
+            <span>{cartItemsCount()}</span>
+          </div>
+
+          <div className="flex justify-between mb-7">
             <span>قیمت کالاها</span>
             <span>{productsCost.toLocaleString()} تومان</span>
           </div>
 
-          <div className="flex justify-between mb-7">
-            <span>هزینه ارسال</span>
-            <span>{shippingCost.toLocaleString()} تومان</span>
-          </div>
-
-          <div className="flex justify-between mb-7 text-darken-gray">
-            <span>مبلغ قابل پرداخت</span>
-            <span>{totalCost.toLocaleString()} تومان</span>
-          </div>
-
-          {/* {session?.user.name ?} */}
           <Link
             href={"/checkout/shipping"}
-            className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150"
+            className="bg-black text-white w-full p-4 rounded-lg block text-center hover:bg-light-black duration-150"
           >
             تکمیل سفارش
           </Link>
-
-          <button
-            className="bg-black text-white w-full p-4 rounded-lg hover:bg-light-black duration-150"
-            onClick={payOrder}
-          >
-            پرداخت سفارش
-          </button>
         </div>
       )}
     </div>
